@@ -58,42 +58,46 @@ dependencies {
     // compose dependacncy
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
 
-                groupId = "com.github.philipplackner"
-                artifactId = "image-preview-compose"
-                version = "1.0"
-            }
-        }
-    }
-}
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("quest-package") {
-                from(components["release"])
-                groupId = "com.github.patelvishal937"
-                artifactId = "quest-package"
-                version = "1.0"
-            }
-        }
 
-        repositories {
-            maven {
-                name = "PrivateRepository"
-                url = uri("https://your-private-repo-url/repository/maven-releases/") // Replace with your private repository URL
-                credentials {
-                    username = project.findProperty("repo.user") as String? ?: System.getenv("REPO_USER")
-                    password = project.findProperty("repo.password") as String? ?: System.getenv("REPO_PASSWORD")
-                }
-            }
-        }
-    }
-}
+
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            create<MavenPublication>("release") {
+//                from(components["release"])
+//
+//                groupId = "com.github.philipplackner"
+//                artifactId = "image-preview-compose"
+//                version = "1.0"
+//            }
+//        }
+//    }
+//}
+//
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            create<MavenPublication>("quest-package") {
+//                from(components["release"])
+//                groupId = "com.github.patelvishal937"
+//                artifactId = "quest-package"
+//                version = "1.0"
+//            }
+//        }
+//
+//        repositories {
+//            maven {
+//                name = "PrivateRepository"
+//                url = uri("https://your-private-repo-url/repository/maven-releases/") // Replace with your private repository URL
+//                credentials {
+//                    username = project.findProperty("repo.user") as String? ?: System.getenv("REPO_USER")
+//                    password = project.findProperty("repo.password") as String? ?: System.getenv("REPO_PASSWORD")
+//                }
+//            }
+//        }
+//    }
+//}
 
 
