@@ -59,28 +59,58 @@ dependencies {
 }
 
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("quest-package") {
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            create<MavenPublication>("quest-package") {
+//                from(components["release"])
+//                groupId = "com.github.patelvishal937"
+//                artifactId = "quest-package"
+//                version = "1.0"
+//            }
+//        }
+//
+//        repositories {
+//            maven {
+//                name = "AndroidLibrary"
+//                url = uri("https://your-private-repo-url/repository/maven-releases/") // Replace with your private repository URL
+//                credentials {
+//                    username = project.findProperty("repo.user") as String? ?: System.getenv("REPO_USER")
+//                    password = project.findProperty("repo.password") as String? ?: System.getenv("REPO_PASSWORD")
+//                }
+//            }
+//        }
+//    }
+//}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.questlabs"
+            artifactId = "quest-android-sdk"
+            version = "1.0.0"
+
+            afterEvaluate {
                 from(components["release"])
-                groupId = "com.github.patelvishal937"
-                artifactId = "quest-package"
-                version = "1.0"
             }
         }
-
-        repositories {
-            maven {
-                name = "AndroidLibrary"
-                url = uri("https://your-private-repo-url/repository/maven-releases/") // Replace with your private repository URL
-                credentials {
-                    username = project.findProperty("repo.user") as String? ?: System.getenv("REPO_USER")
-                    password = project.findProperty("repo.password") as String? ?: System.getenv("REPO_PASSWORD")
-                }
-            }
+    }
+    repositories {
+        maven {
+            name = "quest-android-sdk-repo"
+            url = uri(layout.buildDirectory.dir("repo"))
         }
     }
 }
 
+tasks.register("publishToLocal") {
+    group = "publishing"
+    description = "Builds the library and publishes it to the local Maven repository."
+
+    dependsOn("assembleRelease", "publish")
+
+    doLast {
+        println("Library successfully published to the local Maven repository at: ${rootProject.buildDir}/repo")
+    }
+}
 
