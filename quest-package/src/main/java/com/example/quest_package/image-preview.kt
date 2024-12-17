@@ -18,48 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
-@Composable
-fun ImagePreview(
-    image: Painter,
-    modifier: Modifier = Modifier,
-    description: String = "",
-    contentDescription: String = "",
-    onImageClick: () -> Unit = {}
-) {
-    Box(
-        modifier = modifier
-            .aspectRatio(1f)
-            .clip(RoundedCornerShape(10.dp))
-            .shadow(15.dp, RoundedCornerShape(15.dp))
-            .clickable { onImageClick() }
-    ) {
-        Image(
-            painter = image,
-            contentDescription = contentDescription,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-        )
-        Text(
-            text = description,
-            color = Color.White,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            Color.Transparent,
-                            Color.Black
-                        )
-                    )
-                )
-                .align(Alignment.BottomStart)
-                .padding(8.dp)
-        )
-    }
-}
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
