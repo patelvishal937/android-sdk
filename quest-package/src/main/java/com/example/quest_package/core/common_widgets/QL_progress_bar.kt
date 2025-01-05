@@ -1,8 +1,12 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,41 +15,59 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun qlProgressBar(timeRemaining: Int) {
-    Column(horizontalAlignment = Alignment.Start) {
-        Text(
-            text = "Time Remaining: $timeRemaining mins",
-            fontSize = 14.sp,
-            color = Color.Gray,
-
+fun QlProgressBar(
+    value: Double,
+    total: Double,
+    label: String
+) {
+    Box(
+        modifier = Modifier
+            .padding(10.dp)
+            .background(Color(0xffe6ebec), shape = RoundedCornerShape(8.dp))
+    ) {
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Text(
+                text = "Time Remaining: $label",
+                fontSize = 10.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color(0xff222222),
+                modifier = Modifier
+                    .padding(bottom = 5.dp)
             )
-        roundedProgressBar(progress = 48f, totalTime = 60f)
+            RoundedProgressBar(progress = value, totalTime = total)
+        }
     }
 }
 
+
+
 @Composable
-fun roundedProgressBar(progress: Float, totalTime: Float) {
-    val progressPercentage = (progress / totalTime).coerceIn(0f, 1f)
+fun RoundedProgressBar(progress: Double, totalTime: Double) {
+    val progressPercentage = (progress / totalTime).coerceIn(0.0, 1.0).toFloat()
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(4.dp)
-            .clip(RoundedCornerShape(16.dp)) // Apply rounded corners to the entire progress bar
-            .background(Color(0xFFE0E0E0)) // Background color for the unfilled portion
+            .height(5.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(Color(0xFFFFFFFF))
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(progressPercentage) // Width is based on progress
+                .fillMaxWidth(progressPercentage)
                 .height(8.dp)
-                .clip(RoundedCornerShape(16.dp)) // Apply rounded corners to the filled portion as well
+                .clip(RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.horizontalGradient(
-                        colors = listOf(Color(0xFF81C784), Color(0xFFA5D6A7))
+                        colors = listOf(Color(0xFF083b42), Color(0xFF083b42))
                     )
                 )
         )
