@@ -1,12 +1,10 @@
 package com.example.quest_package
-
+import StreakScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import com.example.quest_package.ui.theme.Quest_packageTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,10 +14,10 @@ class MainActivity : ComponentActivity() {
             Quest_packageTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+//                    Greeting("Android")
+                    StreakScreen()
                 }
             }
         }
