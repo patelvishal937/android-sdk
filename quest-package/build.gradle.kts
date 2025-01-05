@@ -128,34 +128,47 @@ dependencies {
 //    }
 //}
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.questlabs"
-            artifactId = "quest-android-sdk"
-            version = "1.0.0"
+//publishing {
+//    publications {
+//        register<MavenPublication>("release") {
+//            groupId = "com.questlabs"
+//            artifactId = "quest-android-sdk"
+//            version = "1.0.0"
+//
+//            afterEvaluate {
+//                from(components["release"])
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            name = "quest-android-sdk-repo"
+//            url = uri(layout.buildDirectory.dir("repo"))
+//        }
+//    }
+//}
+//
+//tasks.register("publishToLocal") {
+//    group = "publishing"
+//    description = "Builds the library and publishes it to the local Maven repository."
+//
+//    dependsOn("assembleRelease", "publish")
+//
+//    doLast {
+//        println("Library successfully published to the local Maven repository at: ${rootProject.buildDir}/repo")
+//    }
+//}
 
-            afterEvaluate {
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("quest-package") {
                 from(components["release"])
+                groupId = "com.github.patelvishal937"
+                artifactId = "quest-package"
+                version = "1.0.5"
             }
         }
-    }
-    repositories {
-        maven {
-            name = "quest-android-sdk-repo"
-            url = uri(layout.buildDirectory.dir("repo"))
-        }
-    }
-}
-
-tasks.register("publishToLocal") {
-    group = "publishing"
-    description = "Builds the library and publishes it to the local Maven repository."
-
-    dependsOn("assembleRelease", "publish")
-
-    doLast {
-        println("Library successfully published to the local Maven repository at: ${rootProject.buildDir}/repo")
     }
 }
 
